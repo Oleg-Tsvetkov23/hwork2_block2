@@ -1,7 +1,7 @@
-const { Router } = require("express");
-const { container } = require("../container");
-const { BooksRepository } = require("../books/bookrepository");
-const router = new Router();
+import { Router } from "express";
+import { container } from "../container";
+import { BooksRepository } from "../books/bookrepository";
+const router = Router();
 
 router.get("/", async (req, res) => {
   const repo = container.get(BooksRepository)

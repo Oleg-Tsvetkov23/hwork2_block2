@@ -1,12 +1,12 @@
-require("reflect-metadata");
+import "reflect-metadata";
+import "dotenv/config";
 
-const express = require("express");
-require('dotenv').config()
-const path = require("path");
-const cookieParser = require("cookie-parser");
-const logger = require("morgan");
-const errorMiddleware = require("./middleware/error")
+import express from "express";
+import path from "path";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
 
+const errorMiddleware = require("../middleware/error");
 const booksRouter = require("./routers/routes");
 
 require("./db_connection");
@@ -24,5 +24,5 @@ app.use("/api/books", booksRouter);
 app.use(errorMiddleware)
 
 const listener = app.listen(8080, function () {
-  console.log("Listening on port " + listener.address().port);
+  console.log("Listening on http://localhost:8080");
 });

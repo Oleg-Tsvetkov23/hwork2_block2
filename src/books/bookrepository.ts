@@ -1,10 +1,18 @@
-const { Book } = require("../models/books");
+import { Book } from "../models/books";
 
-class BooksRepository {
+interface CreateBookDto {
+  title: string;
+  description: string;
+  authors: string;
+  favorite: string;
+  fileCover: string;
+}
+
+export class BooksRepository {
   constructor() {
     console.log("new BooksService");
   }
-  async create(data) {
+  async create(data:CreateBookDto) {
     const book = new Book(data);
     await book.save();
     return book;
@@ -12,16 +20,14 @@ class BooksRepository {
   findAll() {
     return Book.find();
   }
-  getBook(id) {
+  getBook(id:string) {
     return Book.findById(id);
   }
-  deleteBook(id) {
+  deleteBook(id:string) {
     return Book.deleteOne({_id:id});
   }
-  updateBook(data,id) {
+  updateBook(data:CreateBookDto,id:string) {
     const {title, description, authors, favorite, fileCover} = data
     return Book.findByIdAndUpdate(id, {title, description, authors, favorite, fileCover});
   }
 }
-
-module.exports = { BooksRepository };
