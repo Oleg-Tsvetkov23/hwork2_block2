@@ -1,33 +1,34 @@
-import { Book } from "../models/books";
+import { BookModel } from "../models/books";
+import { Book } from "./ibook"
 
 interface CreateBookDto {
-  title: string;
-  description: string;
-  authors: string;
-  favorite: string;
-  fileCover: string;
+  title: Book['title'];
+  description: Book['description'];
+  authors: Book['authors'];
+  favorite: Book['favorite'];
+  fileCover: Book['fileCover'];
 }
 
 export class BooksRepository {
   constructor() {
     console.log("new BooksService");
   }
-  async create(data:CreateBookDto) {
-    const book = new Book(data);
+  async create(data:CreateBookDto):Promise<Book> {
+    const book = new BookModel(data);
     await book.save();
     return book;
   }
-  findAll() {
-    return Book.find();
+  findAll():Promise<Book[]> {
+    return BookModel.find().exec();
   }
   getBook(id:string) {
-    return Book.findById(id);
+    return BookModel.findById(id).exec();
   }
   deleteBook(id:string) {
-    return Book.deleteOne({_id:id});
+    return BookModel.deleteOne({_id:id}).exec();
   }
   updateBook(data:CreateBookDto,id:string) {
     const {title, description, authors, favorite, fileCover} = data
-    return Book.findByIdAndUpdate(id, {title, description, authors, favorite, fileCover});
+    return BookModel.findByIdAndUpdate(id, {title, description, authors, favorite, fileCover}).exec();
   }
 }

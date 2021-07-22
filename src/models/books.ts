@@ -1,13 +1,13 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
+import { Book } from "../books/ibook"
 
-const { Schema } = mongoose;
 const schema = new Schema({
-  title : { type  : String, required: true},
-  description: { type : String, default : "" },
-  authors: { type : String, required : true},
-  favorite: { type : String, default : ""},
-  fileCover: { tyep :String, default : ""},
+  title : String,
+  description: String,
+  authors: String,
+  favorite: String,
+  fileCover: String,
 });
 
-export const Book = mongoose.model("Book", schema);
+export const BookModel = mongoose.model<Book & Document>("Book", schema);
 
